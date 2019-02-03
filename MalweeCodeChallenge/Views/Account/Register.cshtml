@@ -1,0 +1,127 @@
+﻿@model MalweeCodeChallenge.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSIDE - Criar Usuário</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/app/Login/login.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="~/Content/app/Login/img/Inside - N.png" />
+            <h1 style="color: rgb(35, 39, 43)">INSIDE</h1>
+        </div>
+
+        <!-- Login Form -->
+        @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="text" id="Name" class="fadeIn second" name="Name" placeholder="Nome">
+            <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
+            <input type="text" id="Email" class="fadeIn second" name="Neighborhood" placeholder="Bairro">
+            <input type="text" id="Email" class="fadeIn second" name="City" placeholder="Cidade">            
+            @Html.DropDownList("State", (IEnumerable<SelectListItem>)ViewBag.StatesEnum,"", null)
+            <input type="password" id="Password" class="fadeIn third" name="Password" placeholder="Senha">
+            <input type="password" id="ConfirmPassword" class="fadeIn third" name="ConfirmPassword" placeholder="Confirmar Senha">
+            @Html.DropDownList("Supplier", new SelectList(ViewBag.SupplierList, "IdDbKey", "Name", null))
+
+            <input type="submit" class="fadeIn fourth" value="Registrar">
+        }
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="Login">Ir para Login</a>
+        </div>
+
+    </div>
+</div>
+
+
+@*<div class="content-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="page-title-box">
+                            <h4 class="page-title">INSIDE - Login</h4>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <section id="loginForm">
+                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <h4>Create a new account.</h4>
+                                <hr />
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                                    <div class="col-md-10">
+                                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    @Html.LabelFor(model => model.Supplier, htmlAttributes: new { @class = "col-md-2 control-label" })
+                                    <div class="col-sm-10">
+                                        @Html.DropDownList("Supplier", new SelectList(ViewBag.SupplierList, "IdDbKey", "Name", null), htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Supplier, "", new { @class = "text-dangerValidation" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" class="btn btn-default" value="Register" />
+                                    </div>
+                                </div>
+                            }
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="footer text-right">
+            <p>&copy; @DateTime.Now.Year - INSIDE. Todos os direitos reservados</p>
+        </footer>
+
+    </div>*@
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+
+</body>
+
+</html>

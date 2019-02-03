@@ -1,0 +1,54 @@
+﻿@using MalweeCodeChallenge.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSIDE - Login</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/app/Login/login.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="~/Content/app/Login/img/Inside - N.png" />
+                <h1 style="color: rgb(35, 39, 43)">INSIDE</h1>
+            </div>
+
+            <!-- Login Form -->
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <input type="text" id="Email" class="fadeIn second" name="Email" placeholder="Email">
+                <input type="password" id="Password" class="fadeIn third" name="Password" placeholder="Senha">
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            }
+
+            <!-- Remind Passowrd -->
+                <div id="formFooter">
+                    <a class="underlineHover" href="Register">Criar Usuario</a><br />
+                    @Html.ActionLink("Relatórios", "ExpensesPerMonth", "Reports", routeValues: null, htmlAttributes: new { id = "reportsLink" })
+                </div>
+
+        </div>
+    </div>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+﻿@using MalweeCodeChallenge.Core.Helper
+@model IEnumerable<MalweeCodeChallenge.Core.Contracts.DataObjects.ServiceProvidedDto>
+
+<div id="servicesGrid">
+
+
+    <div class="table-responsive" id="gridAdvertising">
+        @{
+            var gridProduct = new WebGrid(@Model, canPage: false,
+                selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridListProduct"); }
+        @gridProduct.GetHtml(tableStyle: "table no-margin table-striped no-border",
+            headerStyle: "",
+            alternatingRowStyle: "",
+            selectedRowStyle: "",
+            columns: gridProduct.Columns(
+                gridProduct.Column("ClientName", "Cliente", canSort: true),
+                gridProduct.Column("ClientState", "Estado",format: @<i>@MalweeCodeChallenge.Core.Helper.EnumHelper.GetDescription(@item.ClientState)</i>, canSort: true),
+                             gridProduct.Column("ClientCity", "Cidade", canSort: true),
+                             gridProduct.Column("ClientNeighborhood", "Bairro", canSort: true),
+                             gridProduct.Column("ServiceDescription", "Tipo de Serviço",@<i>@MalweeCodeChallenge.Core.Helper.EnumHelper.GetDescription(@item.Service)</i>, canSort: true),
+                                         gridProduct.Column("DateOfService", "Data de atendimento", canSort: true),
+                                         gridProduct.Column("Value", "Valor", canSort: true)))
+    </div>
+</div>

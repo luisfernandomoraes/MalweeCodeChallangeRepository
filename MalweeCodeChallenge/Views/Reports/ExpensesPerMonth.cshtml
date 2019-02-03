@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MalweeCodeChallenge.Models.ExpensesPerMonthViewModel>
+
+@{
+    ViewBag.Title = "Clientes que mais gastaram em serviços";
+}
+
+<h2>Clientes que mais gastaram em serviços</h2>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mês</th>
+            <th>Cliente</th>
+            <th>Valor total</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.GroupBy(x => x.Month))
+        {
+
+            var groupedItems = Model.Where(x => x.Month == item.Key).SelectMany(x => x.Items).ToList();
+
+
+            foreach (var subItem in groupedItems)
+            {
+                <tr>
+                    @if (groupedItems.IndexOf(subItem) == 0)
+                    {
+                        <td style="border-top: 1px solid #ddd;" rowspan="@Model.Where(x => x.Month == item.Key).SelectMany(x => x.Items).Count()">@item.Key</td>
+
+                        <td style="border-top: 1px solid #ddd;">
+                            @Html.DisplayFor(modelItem => subItem.ClientName)
+                        </td>
+                        <td style="border-top: 1px solid #ddd;">
+                            @Html.DisplayFor(modelItem => subItem.Value)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => subItem.ClientName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => subItem.Value)
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>

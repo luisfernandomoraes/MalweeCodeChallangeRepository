@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSIDE - Controle de TaskList</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+
+<body class="fixed-left">
+    <input type="hidden" id="success"
+           value="@TempData["success"]" />
+    <input type="hidden" id="info"
+           value="@TempData["info"]" />
+    <input type="hidden" id="warning"
+           value="@TempData["warning"]" />
+    <input type="hidden" id="error"
+           value="@TempData["error"]" />
+
+    <div id="wrapper">
+        <div class="topbar">
+            <div class="topbar-left">
+                <a href="@Url.Action("Index", "Home")" class="logo"><img src="~/Content/app/Login/img/Inside - N.png" /><span>In<span>side</span></span></a>
+            </div>
+
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <button class="button-menu-mobile open-left waves-effect waves-light">
+                                <i class="mdi mdi-menu"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+
+        <div class="left side-menu">
+            <div class="sidebar-inner slimscrollleft" style="background: #f3f3f3">
+                <div id="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Navegação</li>
+
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "ServiceProvideds")" class="waves-effect"><i class="glyphicon glyphicon-check"></i><span> Serviços Prestados </span></a>
+                            </li>
+                        }
+
+                        <li>
+                            <a href="@Url.Action("ExpensesPerMonth", "Reports")" class="waves-effect"><i class="glyphicon glyphicon-alert"></i><span> Gastos por mês </span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("SupplierAverageByService", "Reports")" class="waves-effect"><i class="mdi mdi-view-dashboard"></i><span> Média de valor </span></a>
+                        </li>
+
+                        <li>
+                            <a href="@Url.Action("SupplierServiceByMonth", "Reports")" class="waves-effect"><i class="glyphicon glyphicon-tasks"></i><span> Fornecedores </span></a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <div class="content-page">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Controle de Prestação de Serviços</h4>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @RenderBody()
+
+                </div>
+            </div>
+
+            <footer class="footer text-right">
+                <p>&copy; @DateTime.Now.Year - INSIDE. Todos os direitos reservados</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(function () {
+            var displayMessage = function (message, msgType) {
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+                toastr[msgType](message);
+            };
+
+            if ($('#success').val()) {
+                displayMessage($('#success').val(), 'success');
+            }
+            if ($('#info').val()) {
+                displayMessage($('#info').val(), 'info');
+            }
+            if ($('#warning').val()) {
+                displayMessage($('#warning').val(), 'warning');
+            }
+            if ($('#error').val()) {
+                displayMessage($('#error').val(), 'error');
+            }
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+            $('#datatable-keytable').DataTable({ keys: true });
+            $('#datatable-responsive').DataTable();
+            $('#datatable-colvid').DataTable({
+                "dom": 'C<"clear">lfrtip',
+                "colVis": {
+                    "buttonText": "Change columns"
+                }
+            });
+            $('#datatable-scroller').DataTable({
+                ajax: "../plugins/datatables/json/scroller-demo.json",
+                deferRender: true,
+                scrollY: 380,
+                scrollCollapse: true,
+                scroller: true
+            });
+            var table = $('#datatable-fixed-header').DataTable({ fixedHeader: true });
+            var table = $('#datatable-fixed-col').DataTable({
+                scrollY: "300px",
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                fixedColumns: {
+                    leftColumns: 1,
+                    rightColumns: 1
+                }
+            });
+        });
+        TableManageButtons.init();
+
+    </script>
+
+</body>
+
+</html>

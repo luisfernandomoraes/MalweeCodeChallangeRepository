@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MalweeCodeChallenge.Models.SupplierServiceByMonthViewModel>
+
+@{
+    ViewBag.Title = "Fornecedores sem prestar atendimento";
+}
+
+<h2>Fornecedores sem prestar atendimento</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Mês</th>
+            <th>Fornecedor</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+
+            foreach (var subItem in item.Items)
+            {
+                <tr>
+                    @if (item.Items.IndexOf(subItem) == 0)
+                    {
+                        <td style="border-top: 1px solid #ddd;" rowspan="@item.Items.Count">@item.Month</td>
+
+                        <td style="border-top: 1px solid #ddd;">
+                            @Html.DisplayFor(modelItem => subItem.SupplierName)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => subItem.SupplierName)
+                        </td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

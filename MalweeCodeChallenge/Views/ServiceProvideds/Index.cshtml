@@ -1,0 +1,74 @@
+﻿@using MalweeCodeChallenge.Core.Helper
+@model IEnumerable<MalweeCodeChallenge.Core.Contracts.DataObjects.ServiceProvidedDto>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/app/ServiceProvided/index.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="row">
+        <div class="form-horizontal col-md-12">
+            <label class="lbl" id="lblFilterBy" for="filter">Filtar por:</label>
+            @*<label for="client">Cliente</label>
+                <input style="margin-right: 10px;" type="radio" name="gender" id="client" value="client">
+
+                <label for="state">Estado</label>
+                <input style="margin-right: 10px;" type="radio" name="gender" id="state" value="state">
+
+                <label for="city">Cidade</label>
+                <input style="margin-right: 10px;" type="radio" name="gender" id="city" value="city">
+
+                <label for="neighborhood">Bairro</label>
+                <input style="margin-right: 10px;" type="radio" name="neighborhood" id="neighborhood" value="neighborhood">
+
+                <label for="service">Tipo de Serviço</label>
+                <input style="margin-right: 10px;" type="radio" name="service" id="service" value="service">
+
+                <label for="minValue">Valor Mínimo</label>
+                <input style="margin-right: 10px;" type="radio" name="minValue" id="minValue" value="minValue">
+
+                <label for="maxValue">Valor Máximo</label>
+                <input style="margin-right: 10px;" type="radio" name="maxValue" id="maxValue" value="maxValue">*@
+
+            @Html.DropDownList("FilterTypeEnum", ViewBag.FilterTypeEnum as SelectList, htmlAttributes: new { id = "SelectFilter" })
+
+        </div>
+        <div class="row">
+            <input style="margin-left: 95px" type="text" name="filter" id="filter">
+            <input type="button" id="btnApplyFilter" style="height: 46.22px;margin-bottom: 5px;" class="btn btn-default" value="Aplicar" />
+
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<input onclick="window.location.href='/ServiceProvideds/Create'" type="button" class="btn btn-primary" value="Criar Novo" />
+
+
+@Html.Partial("_Grid", Model)
+@*<div class="table-responsive" id="gridAdvertising">
+        @{
+            var gridProduct = new WebGrid(ViewBag.SericesProvieds, canPage: false,
+                selectionFieldName: "selectedRow", ajaxUpdateContainerId: "gridListProduct"); }
+        @gridProduct.GetHtml(tableStyle: "table no-margin table-striped no-border",
+                headerStyle: "",
+                alternatingRowStyle: "",
+                selectedRowStyle: "",
+                columns: gridProduct.Columns(
+                    gridProduct.Column("ClientName", "Cliente", canSort: true),
+                    gridProduct.Column("ClientState", "Estado",format: @<i>@MalweeCodeChallenge.Core.Helper.EnumHelper.GetDescription(@item.ClientState)</i>, canSort: true),
+                                                                                                                 gridProduct.Column("ClientCity", "Cidade", canSort: true),
+                                                                                                                 gridProduct.Column("ClientNeighborhood", "Bairro", canSort: true),
+                                                                                                                 gridProduct.Column("ServiceDescription", "Tipo de Serviço",@<i>@MalweeCodeChallenge.Core.Helper.EnumHelper.GetDescription(@item.Service)</i>, canSort: true),
+                                                                                                                                                                                                gridProduct.Column("DateOfService", "Data de atendimento", canSort: true),
+                                                                                                                                                                                                gridProduct.Column("Value", "Valor", canSort: true)))
+    </div>*@
+<!--scripts---->
+@section Scripts {
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.maskMoney.min.js"></script>
+    <script src="~/Scripts/app/serviceProvided/index/index.js"></script>
+}

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MalweeCodeChallenge.Models.SupplierAverageByServiceViewModel>
+
+@{
+    ViewBag.Title = "Média de valor cobrado por fornecedor ";
+}
+
+<h2>Média de valor cobrado por fornecedor </h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Fornecedor
+        </th>
+        <th>
+            Tipo de serviço
+        </th>
+        <th>
+            Valor médio
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplierName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+    </tr>
+}
+
+</table>
