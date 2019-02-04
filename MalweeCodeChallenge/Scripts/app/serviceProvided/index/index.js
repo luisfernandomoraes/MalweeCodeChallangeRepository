@@ -44,6 +44,8 @@
 
             },
             success: (result) => {
+                if (typeof result.success !== "undefined" && !result.success)
+                    swal("Erro", result.message, "error");
                 $("#servicesGrid").html(result);
             },
             error: (XMLHttpRequest, textStatus, errorThrown) => {

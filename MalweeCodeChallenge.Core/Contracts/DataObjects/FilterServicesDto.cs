@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MalweeCodeChallenge.Core.Contracts.DataObjects
 {
     public class FilterServicesDto
     {
         public FilterTypeEnum FilterType { get; set; }
+        [Required]
         public string FilterValue { get; set; }
     }
 
